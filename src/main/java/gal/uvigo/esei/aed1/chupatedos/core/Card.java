@@ -74,11 +74,12 @@ public enum Card {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         switch (this.number) {
-            case 10 -> sb.append("Sota de ");
-            case 11 -> sb.append("Caballo de ");
-            case 12 -> sb.append("Rey de ");
-            default -> sb.append(Integer.toString(this.number)).append(" de ");
+            case 10 -> sb.append("Sota");
+            case 11 -> sb.append("Caballo");
+            case 12 -> sb.append("Rey");
+            default -> sb.append(Integer.toString(this.number));
         };
+        sb.append(" de ");
         sb.append(this.suit);
         return sb.toString();
     }

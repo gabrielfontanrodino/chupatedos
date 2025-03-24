@@ -80,6 +80,7 @@ public class Game {
         iu.displayMessage("Discard: "+table.topCard());
         iu.displayMessage("Discard size: "+table.getDiscardDeckSize());
         iu.displayMessage("Deck size: "+ deck.getNumberOfCards());
+        iu.displayEmptyLine();
         for(var player : players) {
             iu.displayMessage(player.toString());
         }
