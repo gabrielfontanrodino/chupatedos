@@ -1,7 +1,6 @@
 package gal.uvigo.esei.aed1.chupatedos.core;
 
 import java.util.ArrayList;
-import java.util.NoSuchElementException;
 
 import gal.uvigo.esei.aed1.chupatedos.iu.IU;
 
@@ -16,7 +15,7 @@ public class Game {
     public Game(IU iu) {
         this.iu = iu;
         init();
-    } //Me gusta bobby <3
+    }
 
     private void welcomeMessage() {
         iu.displayMessage(" ========= Bienvenido a ChupateDos ========= ");
