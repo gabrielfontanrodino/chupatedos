@@ -1,8 +1,17 @@
 package gal.uvigo.esei.aed1.chupatedos.core;
 
 /**
- * palos de la baraja española
+ * Palos de la baraja española
  */
 public enum Suit {
     OROS, COPAS, ESPADAS, BASTOS;
+
+    public @Override String toString() {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(this.name().charAt(0)); // primera letra en mayúsculas
+        sb.append(this.name().substring(1).toLowerCase()); // resto en minúsculas
+
+        return sb.toString();
+    }
 }

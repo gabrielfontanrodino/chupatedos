@@ -58,22 +58,28 @@ public enum Card {
         return this.suit;
     }
 
+    public boolean isSameSuit(Card other){
+        return this.getSuit() == other.getSuit();
+    }
+
+    public boolean isSameNum(Card other){
+        return this.getNumber() == other.getNumber();
+    }
+
+    public boolean isCompatibleWith(Card other){
+        return this.isSameSuit(other) || this.isSameNum(other);
+    }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-
-        StringBuilder suitToDisplay = new StringBuilder();
-        switch (this.suit.name()) {
-            case "OROS" -> suitToDisplay.append("  ").append(this.suit).append(" ");
-            case "COPAS" -> suitToDisplay.append(" ").append(this.suit).append(" ");
-            case "ESPADAS" -> suitToDisplay.append(this.suit);
-            case "BASTOS" -> suitToDisplay.append(this.suit).append(" ");
-        }
-        StringBuilder numberToDisplay = new StringBuilder();
-        numberToDisplay.append(this.number < 10 ? " " + this.number : this.number);
-        sb.append(" [ ").append(suitToDisplay).append(" | ").append(numberToDisplay).append(" ] ");
-
+        switch (this.number) {
+            case 10 -> sb.append("Sota de ");
+            case 11 -> sb.append("Caballo de ");
+            case 12 -> sb.append("Rey de ");
+            default -> sb.append(Integer.toString(this.number)).append(" de ");
+        };
+        sb.append(this.suit);
         return sb.toString();
     }
 

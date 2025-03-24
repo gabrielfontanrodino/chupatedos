@@ -17,20 +17,14 @@ public class IU {
      * @return El num., como entero
      */
     public int readNumber(String msg) {
-        boolean repeat;
-        int toret = 0;
-
-        do {
-            repeat = false;
-            System.out.print(msg);
+        while (true) {
             try {
-                toret = Integer.parseInt(keyboard.nextLine());
-            } catch (NumberFormatException exc) {
-                repeat = true;
+                System.out.print(msg);
+                return Integer.parseInt(keyboard.nextLine());
+            } catch (NumberFormatException e) {
+                continue;
             }
-        } while (repeat);
-
-        return toret;
+        }
     }
 
     /**
@@ -40,10 +34,8 @@ public class IU {
      * @return el string leido
      */
     public String readString(String msg) {
-        String toret;
         System.out.print(msg);
-        toret = keyboard.nextLine();
-        return toret;
+        return keyboard.nextLine();
     }
 
     /**
@@ -55,5 +47,16 @@ public class IU {
         System.out.println(msg);
     }
 
+    public void displayEmptyLine() {
+        System.out.println();
+    }
+
+    public void displayError(String msg) {
+        System.err.println("ERROR - " + msg);
+    }
+
+    public void close() {
+        keyboard.close();
+    }
 
 }
