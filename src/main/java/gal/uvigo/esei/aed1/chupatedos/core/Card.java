@@ -50,12 +50,57 @@ public enum Card {
         this.suit = suit;
     }
 
+
     public int getNumber() {
         return this.number;
     }
 
     public Suit getSuit() {
         return this.suit;
+    }
+
+    public boolean isEven(){
+        if(this == AS_OROS) return false;
+        if(this == DOS_OROS) return true;
+        if(this == TRES_OROS) return false;
+        if(this == CUATRO_OROS) return true;
+        if(this == CINCO_OROS) return false;
+        if(this == SEIS_OROS) return true;
+        if(this == SIETE_OROS) return false;
+        if(this == SOTA_OROS) return true;
+        if(this == CABALLO_OROS) return false;
+        if(this == REY_OROS) return true;
+        if(this == AS_COPAS) return false;
+        if(this == DOS_COPAS) return true;
+        if(this == TRES_COPAS) return false;
+        if(this == CUATRO_COPAS) return true;
+        if(this == CINCO_COPAS) return false;
+        if(this == SEIS_COPAS) return true;
+        if(this == SIETE_COPAS) return false;
+        if(this == SOTA_COPAS) return true;
+        if(this == CABALLO_COPAS) return false;
+        if(this == REY_COPAS) return true;
+        if(this == AS_ESPADAS) return false;
+        if(this == DOS_ESPADAS) return true;
+        if(this == TRES_ESPADAS) return false;
+        if(this == CUATRO_ESPADAS) return true;
+        if(this == CINCO_ESPADAS) return false;
+        if(this == SEIS_ESPADAS) return true;
+        if(this == SIETE_ESPADAS) return false;
+        if(this == SOTA_ESPADAS) return true;
+        if(this == CABALLO_ESPADAS) return false;
+        if(this == REY_ESPADAS) return true;
+        if(this == AS_BASTOS) return false;
+        if(this == DOS_BASTOS) return true;
+        if(this == TRES_BASTOS) return false;
+        if(this == CUATRO_BASTOS) return true;
+        if(this == CINCO_BASTOS) return false;
+        if(this == SEIS_BASTOS) return true;
+        if(this == SIETE_BASTOS) return false;
+        if(this == SOTA_BASTOS) return true;
+        if(this == CABALLO_BASTOS) return false;
+        if(this == REY_BASTOS) return true;
+        throw new IllegalStateException("Unexpected value: " + this);
     }
 
 
@@ -76,5 +121,4 @@ public enum Card {
 
         return sb.toString();
     }
-
 }
