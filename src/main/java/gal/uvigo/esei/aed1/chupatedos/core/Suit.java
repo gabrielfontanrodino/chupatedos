@@ -6,7 +6,8 @@ package gal.uvigo.esei.aed1.chupatedos.core;
 public enum Suit {
     OROS, COPAS, ESPADAS, BASTOS;
 
-    public @Override String toString() {
+    @Override
+    public String toString() {
         StringBuilder sb = new StringBuilder();
 
         sb.append(this.name().charAt(0)); // primera letra en mayúsculas

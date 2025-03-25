@@ -14,17 +14,19 @@ public class Table {
     }
 
     public Card topCard() {
-        if (discardDeck.isEmpty()) {
-            throw new IllegalStateException("Discard deck is empty");
-        }
+        checkDeckState();
         return discardDeck.peek();
     }
 
     public Card takeBottomCard() {
+        checkDeckState();
+        return discardDeck.removeLast();
+    }
+
+    private void checkDeckState() {
         if (discardDeck.isEmpty()) {
             throw new IllegalStateException("Discard deck is empty");
         }
-        return discardDeck.removeLast();
     }
 
     public int getDiscardDeckSize() {
