@@ -27,23 +27,30 @@ public class Game {
         int playerCount = playerCount();
         players = new ArrayList<>(playerCount);
         for (int i = 0; i < playerCount; i++) {
-            String nombre = iu.readString(String.format("Nombre del jugador %d :", i + 1));
+            String nombre = iu.readString(String.format("Nombre del jugador %d : ", i + 1));
             players.add(new Player(nombre));
         }
     }
 
     private int playerCount() {
         int tempPlayerCount;
-        while (true) {
+        boolean validInput = false;
+
+        do {
             try {
                 tempPlayerCount = iu.readNumber("Cuántos jugadores van a jugar? --> ");
-                if (tempPlayerCount < 2 || tempPlayerCount > 5)
-                    throw new IllegalArgumentException("El número de jugadores debe estar entre 2 y 5");
-                return tempPlayerCount;
+                if (tempPlayerCount < 2 || tempPlayerCount > 5) {
+                    throw new IllegalArgumentException("Número de jugadores no válido. Debe ser entre 2 y 5.");
+                } else {
+                    validInput = true;
+                }
             } catch (IllegalArgumentException exception) {
                 iu.displayError(exception.getMessage());
+                tempPlayerCount = -1; // Valor inválido para continuar el bucle
             }
-        }
+        } while (!validInput);
+
+        return tempPlayerCount;
     }
 
     private void dealCards() {
