@@ -20,7 +20,7 @@ public class Table {
 
     public Card takeBottomCard() {
         checkDeckState();
-        return discardDeck.removeLast();
+        return discardDeck.pop(); // removeLast() is not a method of Stack, use pop() instead
     }
 
     private void checkDeckState() {

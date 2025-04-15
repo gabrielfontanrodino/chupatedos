@@ -2,22 +2,20 @@ package gal.uvigo.esei.aed1.chupatedos.core;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.NoSuchElementException;
 
-import gal.uvigo.esei.aed1.chupatedos.core.Card;
-
 public class DeckOfCards {
-    private ArrayList<Card> cards = new ArrayList<Card>();
+    private List<Card> cards;
     
     public DeckOfCards(){
-        restart();
+        cards = new ArrayList<>();
+        restart(); // We use "restart" for avoiding code duplication
     }
 
     public void restart() {
         cards.clear();
-        for(var card : Card.values()){
-            cards.add(card);
-        }
+        Collections.addAll(cards, Card.values());
         Collections.shuffle(cards);
     }
 
@@ -26,7 +24,7 @@ public class DeckOfCards {
     }
 
     public Card pop() {
-        if(cards.isEmpty()) throw new NoSuchElementException("The list is empty");
+        if(cards.isEmpty()) throw new NoSuchElementException("The deck of cards is empty");
         return cards.removeLast();
     }
 

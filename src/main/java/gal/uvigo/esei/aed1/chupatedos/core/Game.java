@@ -1,8 +1,8 @@
 package gal.uvigo.esei.aed1.chupatedos.core;
 
-import java.util.ArrayList;
-
 import gal.uvigo.esei.aed1.chupatedos.iu.IU;
+
+import java.util.ArrayList;
 
 
 public class Game {
@@ -19,36 +19,37 @@ public class Game {
 
     private void welcomeMessage() {
         iu.displayMessage(" ========= Bienvenido a ChupateDos ========= ");
-        
+
         //TODO: Add more info if needed
     }
 
     private void initPlayers() {
-        int cantidadJugadores = cantidadJugadores();
-        players = new ArrayList<>(cantidadJugadores);
-        for (int i = 0; i < cantidadJugadores; i++) {
+        int playerCount = playerCount();
+        players = new ArrayList<>(playerCount);
+        for (int i = 0; i < playerCount; i++) {
             String nombre = iu.readString(String.format("Nombre del jugador %d :", i + 1));
             players.add(new Player(nombre));
         }
     }
 
-    private int cantidadJugadores() {
-        int cantidadJugadores;
-        while(true) {
+    private int playerCount() {
+        int tempPlayerCount;
+        while (true) {
             try {
-                cantidadJugadores = iu.readNumber("Cuántos jugadores van a jugar? --> ");
-                if(cantidadJugadores < 2 || cantidadJugadores > 5) throw new IllegalArgumentException("El número de jugadores debe estar entre 2 y 5");
-                return cantidadJugadores;
-            } catch(IllegalArgumentException exception) {
+                tempPlayerCount = iu.readNumber("Cuántos jugadores van a jugar? --> ");
+                if (tempPlayerCount < 2 || tempPlayerCount > 5)
+                    throw new IllegalArgumentException("El número de jugadores debe estar entre 2 y 5");
+                return tempPlayerCount;
+            } catch (IllegalArgumentException exception) {
                 iu.displayError(exception.getMessage());
             }
         }
     }
-    
+
     private void dealCards() {
-        for(int i = 0; i < players.size(); i++) {
-            for(int j = 0; j < 7; j++) {
-                players.get(i).addCard(deck.pop());
+        for (Player player : players) {
+            for (int j = 0; j < 7; j++) {
+                player.addCard(deck.pop());
             }
         }
     }
@@ -61,14 +62,14 @@ public class Game {
         deck = new DeckOfCards();
 
         dealCards();
-        
-        table.addToDiscardDeck(deck.pop());   
-        
+
+        table.addToDiscardDeck(deck.pop());
+
         iu.displayMessage("=============================================");
         iu.displayEmptyLine();
     }
 
-    public boolean winCondition(Player player) {
+    public boolean hasWon(Player player) {
         return player.getHandSize() == 0;
     }
 
@@ -76,11 +77,11 @@ public class Game {
      * Metodo principal para jugar
      */
     public void play() {
-        iu.displayMessage("Discard: "+table.topCard());
-        iu.displayMessage("Discard size: "+table.getDiscardDeckSize());
-        iu.displayMessage("Deck size: "+ deck.getNumberOfCards());
+        iu.displayMessage("Discard: " + table.topCard());
+        iu.displayMessage("Discard size: " + table.getDiscardDeckSize());
+        iu.displayMessage("Deck size: " + deck.getNumberOfCards());
         iu.displayEmptyLine();
-        for(var player : players) {
+        for (Player player : players) {
             iu.displayMessage(player.toString());
         }
     }

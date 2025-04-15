@@ -17,14 +17,20 @@ public class IU {
      * @return El num., como entero
      */
     public int readNumber(String msg) {
-        while (true) {
+        boolean repeat;
+        int toret = 0;
+
+        do {
+            repeat = false;
+            System.out.print(msg);
             try {
-                System.out.print(msg);
-                return Integer.parseInt(keyboard.nextLine());
-            } catch (NumberFormatException e) {
-                continue;
+                toret = Integer.parseInt(keyboard.nextLine());
+            } catch (NumberFormatException exc) {
+                repeat = true;
             }
-        }
+        } while (repeat);
+
+        return toret;
     }
 
     /**
