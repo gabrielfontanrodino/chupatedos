@@ -16,6 +16,10 @@ public class DeckOfCards {
     public void restart() {
         cards.clear();
         Collections.addAll(cards, Card.values());
+        this.shuffle();
+    }
+
+    public void shuffle() {
         Collections.shuffle(cards);
     }
 
@@ -26,6 +30,11 @@ public class DeckOfCards {
     public Card pop() {
         if(cards.isEmpty()) throw new NoSuchElementException("The deck of cards is empty");
         return cards.removeLast();
+    }
+
+    public Card top() {
+        if(cards.isEmpty()) throw new NoSuchElementException("The deck of cards is empty");
+        return cards.getLast();
     }
 
     public int getNumberOfCards() {

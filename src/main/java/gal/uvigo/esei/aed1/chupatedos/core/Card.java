@@ -1,6 +1,9 @@
 package gal.uvigo.esei.aed1.chupatedos.core;
 
+//TODO: Boolean special Cards 2 y 7
+
 public enum Card {
+    // ==== OROS ====
     AS_OROS(1, Suit.OROS),
     DOS_OROS(2, Suit.OROS),
     TRES_OROS(3, Suit.OROS),
@@ -11,6 +14,7 @@ public enum Card {
     SOTA_OROS(10, Suit.OROS),
     CABALLO_OROS(11, Suit.OROS),
     REY_OROS(12, Suit.OROS),
+    // ==== COPAS ====
     AS_COPAS(1, Suit.COPAS),
     DOS_COPAS(2, Suit.COPAS),
     TRES_COPAS(3, Suit.COPAS),
@@ -21,6 +25,7 @@ public enum Card {
     SOTA_COPAS(10, Suit.COPAS),
     CABALLO_COPAS(11, Suit.COPAS),
     REY_COPAS(12, Suit.COPAS),
+    // ==== ESPADAS ====
     AS_ESPADAS(1, Suit.ESPADAS),
     DOS_ESPADAS(2, Suit.ESPADAS),
     TRES_ESPADAS(3, Suit.ESPADAS),
@@ -31,6 +36,7 @@ public enum Card {
     SOTA_ESPADAS(10, Suit.ESPADAS),
     CABALLO_ESPADAS(11, Suit.ESPADAS),
     REY_ESPADAS(12, Suit.ESPADAS),
+    // ==== BASTOS ====
     AS_BASTOS(1, Suit.BASTOS),
     DOS_BASTOS(2, Suit.BASTOS),
     TRES_BASTOS(3, Suit.BASTOS),
@@ -58,16 +64,16 @@ public enum Card {
         return this.suit;
     }
 
-    public boolean isSameSuit(Card other){
+    public boolean isSameSuit(Card other) {
         return this.getSuit() == other.getSuit();
     }
 
-    public boolean isSameNum(Card other){
+    public boolean isSameNumber(Card other) {
         return this.getNumber() == other.getNumber();
     }
 
-    public boolean isCompatibleWith(Card other){
-        return this.isSameSuit(other) || this.isSameNum(other);
+    public boolean isCompatibleWith(Card other) {
+        return this.isSameSuit(other) || this.isSameNumber(other);
     }
 
     @Override
@@ -78,7 +84,8 @@ public enum Card {
             case 11 -> sb.append("Caballo");
             case 12 -> sb.append("Rey");
             default -> sb.append(Integer.toString(this.number));
-        };
+        }
+        ;
         sb.append(" de ");
         sb.append(this.suit);
         return sb.toString();

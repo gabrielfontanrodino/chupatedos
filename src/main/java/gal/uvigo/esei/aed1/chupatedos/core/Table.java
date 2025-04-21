@@ -18,7 +18,7 @@ public class Table {
         return discardDeck.peek();
     }
 
-    public Card takeBottomCard() {
+    public Card takeTopCard() {
         checkDeckState();
         return discardDeck.pop(); // removeLast() is not a method of Stack, use pop() instead
     }
