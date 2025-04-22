@@ -118,7 +118,6 @@ public class Game {
         } while(!hasWon(players.get(currentPlayerIndex)));
 
         //When the code reaches this point, it means that a player, the one in currentPlayerIndex, has won
-        //POV: the code reaches this point. BUT: the player hasn't won. 
         iu.displaySeparator(72);
         iu.displayEmptyLine();
         iu.displayMessage(String.format("Felicidades %s, has ganado!", players.get(currentPlayerIndex).getName()));

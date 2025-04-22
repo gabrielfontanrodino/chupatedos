@@ -74,12 +74,12 @@ public class Player {
         int displayIndex = 1;
         for (Card card : hand) {
             if(cardToMatch.isCompatibleWith(card)){
-                sb.append("├── ").append(displayIndex).append(": ").append(card).append("\n");
+                sb.append("---> ").append(displayIndex).append(": ").append(card).append("\n");
                 displayIndex++;
             }
         }
         if (!hand.isEmpty()) {
-            sb.append("└── Fin de las cartas jugables de ").append(this.name).append("\n");
+            sb.append("------> Fin de las cartas jugables de ").append(this.name).append("\n");
         }
 
         return sb.toString();
@@ -95,10 +95,10 @@ public class Player {
 
         // Mostrar indexación de cartas
         for (int i = 0; i < hand.size(); i++) {
-            sb.append("├── ").append(i+1).append(": ").append(hand.get(i)).append("\n");
+            sb.append("---> ").append(i+1).append(": ").append(hand.get(i)).append("\n");
         }
         if (!hand.isEmpty()) {
-            sb.append("└── Fin de la mano de ").append(this.name).append("\n");
+            sb.append("------> Fin de la mano de ").append(this.name).append("\n");
         }
 
         return sb.toString();

@@ -85,7 +85,7 @@ public enum Card {
             case 12 -> sb.append("Rey");
             default -> sb.append(Integer.toString(this.number));
         }
-        ;
+
         sb.append(" de ");
         sb.append(this.suit);
         return sb.toString();

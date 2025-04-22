@@ -11,10 +11,10 @@ public class IU {
     }
 
     /**
-     * Lee un num. de teclado
+     * Reads a number from the keyboard.
      *
-     * @param msg El mensaje a visualizar.
-     * @return El num., como entero
+     * @param msg The message to show
+     * @return El number read from the keyboard
      */
     public int readNumber(String msg) {
         boolean repeat;
@@ -34,12 +34,12 @@ public class IU {
     }
 
     /**
-     * Lee un num. de teclado comprendido entre un rango
+     * Reads a number from the keyboard with a specified range.
      *
-     * @param msg El mensaje a visualizar.
-     * @param min El valor mínimo, incluido
-     * @param max El valor máximo, incluido
-     * @return El num., como double
+     * @param msg The message to show
+     * @param min The minimum value, included
+     * @param max The maximum value, included
+     * @return The number read from the keyboard
      */
     public int readNumber(String msg, int min, int max) {
         boolean repeat;
@@ -65,10 +65,10 @@ public class IU {
 
 
     /**
-     * Lee un string de teclado
+     * Reads a string from the keyboard
      *
-     * @param msg mensaje a mostrar antes de la lectura
-     * @return el string leido
+     * @param msg the message to show
+     * @return the string read from the keyboard
      */
     public String readString(String msg) {
         System.out.print(msg);
@@ -84,6 +84,11 @@ public class IU {
         System.out.println(msg);
     }
 
+    /**
+     * Shows a line to separate messages on the screen
+     *
+     * @param length the length of the line to show
+     */
     public void displaySeparator(int length) {
         for (int i = 0; i < length; i++) {
             System.out.print("=");
@@ -91,16 +96,24 @@ public class IU {
         System.out.println();
     }
 
+    /**
+     * Shows an empty line on the screen
+     */
     public void displayEmptyLine() {
         System.out.println();
     }
 
+    /**
+     * Shows an error message on the screen
+     *
+     * @param msg the error message to show
+     */
     public void displayError(String msg) {
         System.err.println("ERROR - " + msg);
     }
 
     /**
-     * Shows a message and waits for the user to press Enter
+     * Waits for a specified amount of time in milliseconds.
      * 
      * @param millis the time to wait in milliseconds
      */
