@@ -40,5 +40,9 @@ public class DeckOfCards {
     public int getNumberOfCards() {
         return cards.size();
     }
+
+    public boolean isDeckEmpty() {
+        return cards.size() == 0;
+    }
     
 }

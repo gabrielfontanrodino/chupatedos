@@ -76,6 +76,10 @@ public enum Card {
         return this.isSameSuit(other) || this.isSameNumber(other);
     }
 
+    public boolean isSpecialCard(){
+        return this.getNumber() == 2 || this.getNumber() == 7;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

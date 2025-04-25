@@ -95,6 +95,16 @@ public class IU {
         }
         System.out.println();
     }
+    
+    /**
+     * Shows 3 dots to make a cute waiting interaction
+     */
+    public void displayWaitingDots() {
+        for (int i = 0; i < 3; i++) {
+            await(1000);
+            displayMessage(".");
+        }
+    }
 
     /**
      * Shows an empty line on the screen
