@@ -1,7 +1,7 @@
 package gal.uvigo.esei.aed1.chupatedos.core;
 
 /**
- * Suits from Spanish/ deck of cards
+ * Suits from Spanish deck of cards
  */
 public enum Suit {
     OROS, COPAS, ESPADAS, BASTOS;

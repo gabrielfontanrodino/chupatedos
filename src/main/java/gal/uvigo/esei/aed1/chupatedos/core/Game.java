@@ -130,9 +130,12 @@ public class Game {
             // Special interaction with 2
             if (justPlayed == true && table.topCard().getNumber() == 2) {
                 iu.displayMessage(String.format(" === Turno de %s === ", currentPlayer.getName()));
+                iu.await(300);
                 iu.displayMessage("La carta superior es un 2!");
+                iu.await(300);;
                 iu.displayMessage("Robas dos cartas y saltas tu turno");
 
+                iu.await(500);
                 iu.displayMessage("----> Cartas robadas");
                 iu.displayMessage(String.format("\t1. %s", deck.top()));
                 currentPlayer.addCard(deck.pop());

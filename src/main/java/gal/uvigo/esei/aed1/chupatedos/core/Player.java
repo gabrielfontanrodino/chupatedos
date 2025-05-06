@@ -32,6 +32,12 @@ public class Player {
         return hand.size();
     }
 
+    /**
+     * Returns the number of playable cards in the player's hand that are compatible with the specified card.
+     * 
+     * @param cardToMatch The card to match for compatibility.
+     * @return The number of playable cards in the player's hand that are compatible with the specified card.
+     */
     public int getPlayeableHandSize(Card cardToMatch) {
         int count = 0;
         for (Card card : hand) {
@@ -61,7 +67,7 @@ public class Player {
                 count++;
             }
         }
-        return null; // No se encontró la carta jugable en el índice especificado
+        return null; // No playable card found at the specified index
     }
 
     /**
