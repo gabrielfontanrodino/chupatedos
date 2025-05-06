@@ -13,22 +13,38 @@ public class Table {
         discardDeck.push(card);
     }
 
-    public Card topCard() {
+    /**
+     * Method to peek the top card from the discard deck
+     * @throws IllegalStateException when the deck to peek is empty
+     */
+    public Card topCard() throws IllegalStateException {
         checkDeckState();
         return discardDeck.peek();
     }
 
-    public Card takeTopCard() {
+    /**
+     * Method to take the top card from the discard deck
+     * @throws IllegalStateException when the deck to pop is empty
+     */
+    public Card takeTopCard() throws IllegalStateException {
         checkDeckState();
-        return discardDeck.pop(); // removeLast() is not a method of Stack, use pop() instead
+        return discardDeck.pop();
     }
 
-    private void checkDeckState() {
+    /**
+     * Method to check if the discard deck is empty and throw an exception when it is empty
+     * @throws IllegalStateException when the deck to access is empty
+     */
+    private void checkDeckState() throws IllegalStateException {
         if (discardDeck.isEmpty()) {
             throw new IllegalStateException("Discard deck is empty");
         }
     }
 
+    /**
+     * Method to see the number of cards from the discard deck
+     * @return discard deck size
+     */
     public int getDiscardDeckSize() {
         return discardDeck.size();
     }

@@ -35,6 +35,8 @@ public class IU {
 
     /**
      * Reads a number from the keyboard with a specified range.
+     * Shows an error message if the number is not in the range [min, max] and
+     * asks for a new number.
      *
      * @param msg The message to show
      * @param min The minimum value, included
@@ -90,10 +92,12 @@ public class IU {
      * @param length the length of the line to show
      */
     public void displaySeparator(int length) {
+        StringBuilder line = new StringBuilder();
         for (int i = 0; i < length; i++) {
-            System.out.print("=");
+            line.append("=");
         }
-        System.out.println();
+
+        System.err.println(line.toString());
     }
     
     /**
@@ -101,9 +105,10 @@ public class IU {
      */
     public void displayWaitingDots() {
         for (int i = 0; i < 3; i++) {
-            await(1000);
+            await(600);
             displayMessage(".");
         }
+        await(600);
     }
 
     /**
@@ -135,6 +140,9 @@ public class IU {
         }
     }
 
+    /**
+     * Closes the keyboard scanner.
+     */
     public void close() {
         keyboard.close();
     }

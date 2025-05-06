@@ -64,22 +64,30 @@ public class Player {
         return null; // No se encontró la carta jugable en el índice especificado
     }
 
+    /**
+     * Returns a string representation of the playable cards in the player's hand that are compatible with the specified card.
+     * This string includes the index of each playable card.
+     * 
+     * @param cardToMatch The card to match for compatibility.
+     * @return A string representation of the playable cards in the player's hand.
+     *         Each playable card is listed with a new index (not the original one), and the string ends with a message
+     *         indicating the end of the list.
+     */
     public String getPlayeableHandString(Card cardToMatch) {
         StringBuilder sb = new StringBuilder();
 
-        sb.append("Cartas jugables de ").append(this.name);
-        sb.append("\n");
+        sb.append(String.format("Cartas jugables de %s: \n", this.name));
 
-        // Mostrar indexación de cartas
+        // Show playable cards with indexation
         int displayIndex = 1;
         for (Card card : hand) {
             if(cardToMatch.isCompatibleWith(card)){
-                sb.append("---> ").append(displayIndex).append(": ").append(card).append("\n");
+                sb.append(String.format("----> %d: %s \n", displayIndex, card));
                 displayIndex++;
             }
         }
         if (!hand.isEmpty()) {
-            sb.append("------> Fin de las cartas jugables de ").append(this.name).append("\n");
+            sb.append(String.format("------> Fin de las cartas jugables de %s \n", this.name));
         }
 
         return sb.toString();
@@ -95,10 +103,10 @@ public class Player {
 
         // Mostrar indexación de cartas
         for (int i = 0; i < hand.size(); i++) {
-            sb.append("---> ").append(i+1).append(": ").append(hand.get(i)).append("\n");
+            sb.append(String.format("----> %d: %s \n", i + 1, hand.get(i)));
         }
         if (!hand.isEmpty()) {
-            sb.append("------> Fin de la mano de ").append(this.name).append("\n");
+            sb.append(String.format("------> Fin de la mano de %s \n", this.name));
         }
 
         return sb.toString();

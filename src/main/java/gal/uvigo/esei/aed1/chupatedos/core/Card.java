@@ -1,7 +1,5 @@
 package gal.uvigo.esei.aed1.chupatedos.core;
 
-//TODO: Boolean special Cards 2 y 7
-
 public enum Card {
     // ==== OROS ====
     AS_OROS(1, Suit.OROS),
@@ -64,20 +62,32 @@ public enum Card {
         return this.suit;
     }
 
+    /**
+     * Method to check if two cards are from the same suit.
+     * @param other The other card to compare with.
+     * @return 'true' if the cards are from the same suit, 'false' otherwise.
+     */
     public boolean isSameSuit(Card other) {
         return this.getSuit() == other.getSuit();
     }
 
+    /**
+     * Method to check if two cards are from the same number.
+     * @param other The other card to compare with.
+     * @return 'true' if the cards are from the same number, 'false' otherwise.
+     */
     public boolean isSameNumber(Card other) {
         return this.getNumber() == other.getNumber();
     }
 
+    /**
+     * Method to check if two cards are compatible.
+     * Two cards are compatible if they are from the same suit or from the same number.
+     * @param other The other card to compare with.
+     * @return 'true' if the cards are compatible, 'false' otherwise.
+     */
     public boolean isCompatibleWith(Card other) {
         return this.isSameSuit(other) || this.isSameNumber(other);
-    }
-
-    public boolean isSpecialCard(){
-        return this.getNumber() == 2 || this.getNumber() == 7;
     }
 
     @Override

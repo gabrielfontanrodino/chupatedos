@@ -16,12 +16,17 @@ public class Game {
         init();
     }
 
+    /**
+     * Method to display a welcome message
+     */
     private void welcomeMessage() {
         iu.displayMessage(" ========= Bienvenido a ChupateDos ========= ");
     }
 
     /**
-     * Method to get the number of players for the game
+     * Method to initialize the players of the game
+     * It asks the user for the number of players and their names
+     * The number of players must be between 2 and 5
      */
     private void initPlayers() {
         int playerCount = iu.readNumber("Cuántos jugadores van a jugar? --> ", 2, 5);
@@ -33,7 +38,8 @@ public class Game {
     }
 
     /**
-     * Method to deal the cards at the start of the game
+     * Method to deal the cards at the start of the game to each player
+     * It fills the players hands with 7 cards each
      */
     private void dealCards() {
         for (Player player : players) {
@@ -47,8 +53,13 @@ public class Game {
      * Method to refill the deck and shuffle it
      */
     private void refillDeck() {
-        iu.displayMessage("Deck vacio, rellenando el deck y barajeando");
+        iu.displayEmptyLine();
+        iu.displaySeparator(72);
+        iu.displayMessage("Baraja vacía. Rellenando el deck y barajando...");
         iu.displayWaitingDots();
+        iu.displaySeparator(72);
+        iu.displayEmptyLine();
+        
         Card aux = table.takeTopCard();
         while (table.getDiscardDeckSize() > 0) {
             deck.addCard(table.takeTopCard());
@@ -84,10 +95,10 @@ public class Game {
      */
     public void play() {
 
+        // 
         int currentPlayerIndex = -1;
 
-        // currentDirection: order of play, "1" == Clockwise and "-1" == CounterClockwise
-        int currentDirection = 1;
+        GameDirection currentDirection = GameDirection.CLOCKWISE;
 
         // justPlayed: On/Off switch to know if the actual card has been just played
         boolean justPlayed = true;
@@ -95,16 +106,19 @@ public class Game {
         do {
 
             // Special interaction with 7
-
             if (justPlayed == true && table.topCard().getNumber() == 7) {
-                iu.displayMessage("Se ha jugado un 7, se invierte la dirección de juego");
-                currentDirection *= -1;
+                iu.displayMessage("Se ha jugado un 7, se invierte la dirección de juego.");
+                iu.displayEmptyLine();
+                currentDirection = currentDirection.reverse();
             }
 
-            // Updated Player Turn Selector 
+            // Updated Player Turn Selector
 
-            currentPlayerIndex = (currentPlayerIndex + currentDirection); 
+            currentPlayerIndex = (currentPlayerIndex + currentDirection.toInt());
 
+            //If the current player index is out of bounds it means that 
+            //we have reached the end of the players list, so we go back to the start
+            
             if (currentPlayerIndex >= players.size()) {
                 currentPlayerIndex = 0;
             } else if (currentPlayerIndex < 0) {
@@ -114,28 +128,29 @@ public class Game {
             Player currentPlayer = players.get(currentPlayerIndex);
 
             // Special interaction with 2
-
             if (justPlayed == true && table.topCard().getNumber() == 2) {
-
                 iu.displayMessage(String.format(" === Turno de %s === ", currentPlayer.getName()));
                 iu.displayMessage("La carta superior es un 2!");
                 iu.displayMessage("Robas dos cartas y saltas tu turno");
 
-                iu.displayMessage("----> Carta robada: " + deck.top());
+                iu.displayMessage("----> Cartas robadas");
+                iu.displayMessage(String.format("\t1. %s", deck.top()));
                 currentPlayer.addCard(deck.pop());
 
                 if (deck.isDeckEmpty()) {
                     refillDeck();
                 }
 
-                iu.displayMessage("----> Carta robada: " + deck.top());
+                iu.displayMessage(String.format("\t2. %s", deck.top()));
                 currentPlayer.addCard(deck.pop());
 
                 if (deck.isDeckEmpty()) {
                     refillDeck();
                 }
 
-                iu.displayMessage("Se ha saltado el turno :(");
+                iu.displayMessage("Saltas tu turno!");
+                iu.displayEmptyLine();
+
                 justPlayed = false;
                 continue;
             }
@@ -159,7 +174,7 @@ public class Game {
 
                 iu.displayMessage("No tienes cartas jugables. Robando una");
                 iu.displayWaitingDots();
-                iu.displayMessage("----> Carta robada: " + deck.top());
+                iu.displayMessage(String.format("----> Carta robada: %s", deck.top()));
 
                 // If the card he must draw can be played, is played instead of being draw into his hand
                 if (deck.top().isCompatibleWith(table.topCard())) {
@@ -181,7 +196,7 @@ public class Game {
                 int cardIndex = iu.readNumber("Elige una carta para jugar: ", 1, max);
 
                 table.addToDiscardDeck(currentPlayer.takeXPlayeableCard(cardIndex - 1, table.topCard()));
-                iu.displayMessage("Has jugado: " + table.topCard().toString());
+                iu.displayMessage(String.format("Has jugado la carta: '%s'", table.topCard().toString()));
                 justPlayed = true;
             }
             iu.await(1000);

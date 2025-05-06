@@ -1,7 +1,7 @@
 package gal.uvigo.esei.aed1.chupatedos.core;
 
 /**
- * Palos de la baraja española
+ * Suits from Spanish/ deck of cards
  */
 public enum Suit {
     OROS, COPAS, ESPADAS, BASTOS;
