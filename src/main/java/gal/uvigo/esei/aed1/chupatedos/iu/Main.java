@@ -5,8 +5,8 @@ import gal.uvigo.esei.aed1.chupatedos.core.Game;
 public class Main {
 
     public static void main(String[] args) {
-        IU iu = new IU();
-        Game chupateDos = new Game(iu);
+        UI ui = new UI();
+        Game chupateDos = new Game(ui);
         chupateDos.play();
     }
 }

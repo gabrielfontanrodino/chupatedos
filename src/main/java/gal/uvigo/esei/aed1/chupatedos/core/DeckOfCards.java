@@ -8,7 +8,7 @@ import java.util.NoSuchElementException;
 public class DeckOfCards {
     private List<Card> cards;
     
-    public DeckOfCards(){
+    public DeckOfCards() {
         cards = new ArrayList<>();
         restart(); // We use "restart" for avoiding code duplication
     }

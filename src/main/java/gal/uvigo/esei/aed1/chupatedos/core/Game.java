@@ -1,18 +1,20 @@
 package gal.uvigo.esei.aed1.chupatedos.core;
 
-import gal.uvigo.esei.aed1.chupatedos.iu.IU;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import gal.uvigo.esei.aed1.chupatedos.iu.UI;
 
 public class Game {
 
-    private ArrayList<Player> players;
+    private List<Player> players;
     private Table table;
     private DeckOfCards deck;
-    private final IU iu;
+    private final UI ui;
 
-    public Game(IU iu) {
-        this.iu = iu;
+    public Game(UI ui) {
+        this.ui = ui;
         init();
     }
 
@@ -20,7 +22,7 @@ public class Game {
      * Method to display a welcome message
      */
     private void welcomeMessage() {
-        iu.displayMessage(" ========= Bienvenido a ChupateDos ========= ");
+        ui.displayMessage(" ========= Bienvenido a ChupateDos ========= ");
     }
 
     /**
@@ -29,10 +31,10 @@ public class Game {
      * The number of players must be between 2 and 5
      */
     private void initPlayers() {
-        int playerCount = iu.readNumber("Cuántos jugadores van a jugar? --> ", 2, 5);
+        int playerCount = ui.readNumber("Cuántos jugadores van a jugar? --> ", 2, 5);
         players = new ArrayList<>(playerCount);
         for (int i = 0; i < playerCount; i++) {
-            String nombre = iu.readString(String.format("Nombre del jugador %d : ", i + 1));
+            String nombre = ui.readString(String.format("Nombre del jugador %d : ", i + 1));
             players.add(new Player(nombre));
         }
     }
@@ -53,14 +55,19 @@ public class Game {
      * Method to refill the deck and shuffle it
      */
     private void refillDeck() {
-        iu.displayEmptyLine();
-        iu.displaySeparator(72);
-        iu.displayMessage("Baraja vacía. Rellenando el deck y barajando...");
-        iu.displayWaitingDots();
-        iu.displaySeparator(72);
-        iu.displayEmptyLine();
+        // === Display message to the user ===
+        ui.displayEmptyLine();
+        ui.displaySeparator(72);
+        ui.displayMessage("Baraja vacía. Rellenando el deck y barajando...");
+        ui.displayWaitingDots();
+        ui.displaySeparator(72);
+        ui.displayEmptyLine();
+        // =================================== 
         
+        // === Refill the deck ===
+        // We take the top card from the discard deck and put it back to the deck
         Card aux = table.takeTopCard();
+        // We add all the cards from the discard deck to the deck
         while (table.getDiscardDeckSize() > 0) {
             deck.addCard(table.takeTopCard());
         }
@@ -82,8 +89,8 @@ public class Game {
 
         table.addToDiscardDeck(deck.pop());
 
-        iu.displaySeparator(72);
-        iu.displayEmptyLine();
+        ui.displaySeparator(72);
+        ui.displayEmptyLine();
     }
 
     public boolean hasWon(Player player) {
@@ -95,25 +102,25 @@ public class Game {
      */
     public void play() {
 
-        // 
         int currentPlayerIndex = -1;
 
         GameDirection currentDirection = GameDirection.CLOCKWISE;
 
         // justPlayed: On/Off switch to know if the actual card has been just played
+        // Default value is true, so that if the first card from the deck is a 7 or a 2,
+        // the game can start with the special interaction of that card
         boolean justPlayed = true;
 
         do {
 
             // Special interaction with 7
             if (justPlayed == true && table.topCard().getNumber() == 7) {
-                iu.displayMessage("Se ha jugado un 7, se invierte la dirección de juego.");
-                iu.displayEmptyLine();
+                ui.displayMessage("Se ha jugado un 7, se invierte la dirección de juego.");
+                ui.displayEmptyLine();
                 currentDirection = currentDirection.reverse();
             }
 
             // Updated Player Turn Selector
-
             currentPlayerIndex = (currentPlayerIndex + currentDirection.toInt());
 
             //If the current player index is out of bounds it means that 
@@ -129,30 +136,30 @@ public class Game {
 
             // Special interaction with 2
             if (justPlayed == true && table.topCard().getNumber() == 2) {
-                iu.displayMessage(String.format(" === Turno de %s === ", currentPlayer.getName()));
-                iu.await(300);
-                iu.displayMessage("La carta superior es un 2!");
-                iu.await(300);;
-                iu.displayMessage("Robas dos cartas y saltas tu turno");
+                ui.displayMessage(String.format(" === Turno de %s === ", currentPlayer.getName()));
+                ui.await(300);
+                ui.displayMessage("La carta superior es un 2!");
+                ui.await(300);;
+                ui.displayMessage("Robas dos cartas y saltas tu turno");
 
-                iu.await(500);
-                iu.displayMessage("----> Cartas robadas");
-                iu.displayMessage(String.format("\t1. %s", deck.top()));
+                ui.await(500);
+                ui.displayMessage("----> Cartas robadas");
+                ui.displayMessage(String.format("\t1. %s", deck.top()));
                 currentPlayer.addCard(deck.pop());
 
                 if (deck.isDeckEmpty()) {
                     refillDeck();
                 }
 
-                iu.displayMessage(String.format("\t2. %s", deck.top()));
+                ui.displayMessage(String.format("\t2. %s", deck.top()));
                 currentPlayer.addCard(deck.pop());
 
                 if (deck.isDeckEmpty()) {
                     refillDeck();
                 }
 
-                iu.displayMessage("Saltas tu turno!");
-                iu.displayEmptyLine();
+                ui.displayMessage("Saltas tu turno!");
+                ui.displayEmptyLine();
 
                 justPlayed = false;
                 continue;
@@ -161,28 +168,28 @@ public class Game {
             justPlayed = false;
 
             // Start of the current player turn
-            iu.displayMessage(String.format(" === Turno de %s === ", currentPlayer.getName()));
-            iu.await(1000);
-            iu.displayEmptyLine();
+            ui.displayMessage(String.format(" === Turno de %s === ", currentPlayer.getName()));
+            ui.await(1000);
+            ui.displayEmptyLine();
 
-            iu.displayMessage(currentPlayer.toString());
+            ui.displayMessage(currentPlayer.toString());
 
-            iu.displayMessage("Pila de descartes: " + table.topCard().toString());
-            iu.await(1000);
-            iu.displayEmptyLine();
+            ui.displayMessage("Pila de descartes: " + table.topCard().toString());
+            ui.await(1000);
+            ui.displayEmptyLine();
 
             // If the player has no cards to play, he must draw a card from the deck
             // else he must play one of his playable cards
             if (currentPlayer.getPlayeableHandSize(table.topCard()) == 0) {
 
-                iu.displayMessage("No tienes cartas jugables. Robando una");
-                iu.displayWaitingDots();
-                iu.displayMessage(String.format("----> Carta robada: %s", deck.top()));
+                ui.displayMessage("No tienes cartas jugables. Robando una");
+                ui.displayWaitingDots();
+                ui.displayMessage(String.format("----> Carta robada: %s", deck.top()));
 
                 // If the card he must draw can be played, is played instead of being draw into his hand
                 if (deck.top().isCompatibleWith(table.topCard())) {
                     table.addToDiscardDeck(deck.pop());
-                    iu.displayMessage("La carta robada fue jugada.");
+                    ui.displayMessage("La carta robada fue jugada.");
                     justPlayed = true;
                 } else {
                     currentPlayer.addCard(deck.pop());
@@ -193,24 +200,28 @@ public class Game {
                 }
 
             } else {
-                
-                iu.displayMessage(currentPlayer.getPlayeableHandString(table.topCard()));
+                //The player has playable cards, so he must play one of them
+
+                // Show the player his playable cards
+                ui.displayMessage(currentPlayer.getPlayeableHandString(table.topCard()));
                 int max = currentPlayer.getPlayeableHandSize(table.topCard());
-                int cardIndex = iu.readNumber("Elige una carta para jugar: ", 1, max);
+                int cardIndex = ui.readNumber("Elige una carta para jugar: ", 1, max);
 
                 table.addToDiscardDeck(currentPlayer.takeXPlayeableCard(cardIndex - 1, table.topCard()));
-                iu.displayMessage(String.format("Has jugado la carta: '%s'", table.topCard().toString()));
+                ui.displayMessage(String.format("Has jugado la carta: '%s'", table.topCard().toString()));
                 justPlayed = true;
             }
-            iu.await(1000);
-            iu.displayEmptyLine();
+            ui.await(1000);
+            ui.displayEmptyLine();
         } while (!hasWon(players.get(currentPlayerIndex)));
+
+        ui.close();
 
         // When the code reaches this point, it means that a player, the one in
         // currentPlayerIndex, has won
-        iu.displaySeparator(72);
-        iu.displayEmptyLine();
-        iu.displayMessage(String.format("Felicidades %s, has ganado!", players.get(currentPlayerIndex).getName()));
-        iu.displayEmptyLine();
+        ui.displaySeparator(72);
+        ui.displayEmptyLine();
+        ui.displayMessage(String.format("Felicidades %s, has ganado!", players.get(currentPlayerIndex).getName()));
+        ui.displayEmptyLine();
     }
 }

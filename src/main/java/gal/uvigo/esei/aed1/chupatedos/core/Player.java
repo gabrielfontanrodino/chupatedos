@@ -1,15 +1,16 @@
 package gal.uvigo.esei.aed1.chupatedos.core;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Player {
 
     private final String name;
-    private LinkedList<Card> hand;
+    private List<Card> hand;
 
     public Player(String name) {
         this.name = name;
-        this.hand = new LinkedList<>();
+        this.hand = new ArrayList<>();
     }
 
     public String getName() {
@@ -33,10 +34,12 @@ public class Player {
     }
 
     /**
-     * Returns the number of playable cards in the player's hand that are compatible with the specified card.
+     * Returns the number of playable cards in the player's hand that are compatible
+     * with the specified card.
      * 
      * @param cardToMatch The card to match for compatibility.
-     * @return The number of playable cards in the player's hand that are compatible with the specified card.
+     * @return The number of playable cards in the player's hand that are compatible
+     *         with the specified card.
      */
     public int getPlayeableHandSize(Card cardToMatch) {
         int count = 0;
@@ -49,13 +52,22 @@ public class Player {
     }
 
     /**
-     * Removes and returns a playable card from the player's hand that matches the specified
-     * index among the compatible cards with the given card to match.
-     * 
-     * @param index The (zero-based) index of the playable card to retrieve among the compatible cards.
-     * @param cardToMatch The card to match for compatibility.
-     * @return The playable card at the specified index among the compatible cards, or {@code null}
-     *         if no such card exists.
+     * Removes and returns the playable card from the player's hand at the specified
+     * index
+     * **among only the cards that are compatible** with the given reference card.
+     *
+     * A card is considered "playable" if it is compatible with {@code cardToMatch},
+     * as determined
+     * by the {@code isCompatibleWith} method.
+     *
+     * @param index       The zero-based index of the desired card within the
+     *                    filtered list of compatible cards.
+     *                    For example, index {@code 0} retrieves the first
+     *                    compatible card found.
+     * @param cardToMatch The reference card used to determine compatibility.
+     * @return The compatible card at the specified index, removed from the player's
+     *         hand,
+     *         or {@code null} if no such card exists.
      */
     public Card takeXPlayeableCard(int index, Card cardToMatch) {
         int count = 0;
@@ -67,16 +79,18 @@ public class Player {
                 count++;
             }
         }
-        return null; // No playable card found at the specified index
+        return null; // No compatible card found at the specified index
     }
 
     /**
-     * Returns a string representation of the playable cards in the player's hand that are compatible with the specified card.
+     * Returns a string representation of the playable cards in the player's hand
+     * that are compatible with the specified card.
      * This string includes the index of each playable card.
      * 
      * @param cardToMatch The card to match for compatibility.
      * @return A string representation of the playable cards in the player's hand.
-     *         Each playable card is listed with a new index (not the original one), and the string ends with a message
+     *         Each playable card is listed with a new index (not the original one),
+     *         and the string ends with a message
      *         indicating the end of the list.
      */
     public String getPlayeableHandString(Card cardToMatch) {
@@ -87,7 +101,7 @@ public class Player {
         // Show playable cards with indexation
         int displayIndex = 1;
         for (Card card : hand) {
-            if(cardToMatch.isCompatibleWith(card)){
+            if (cardToMatch.isCompatibleWith(card)) {
                 sb.append(String.format("----> %d: %s \n", displayIndex, card));
                 displayIndex++;
             }
@@ -107,7 +121,7 @@ public class Player {
         sb.append("Mano actual de ").append(this.name);
         sb.append("\n");
 
-        // Mostrar indexación de cartas
+        // Show all cards with indexation
         for (int i = 0; i < hand.size(); i++) {
             sb.append(String.format("----> %d: %s \n", i + 1, hand.get(i)));
         }

@@ -2,11 +2,11 @@ package gal.uvigo.esei.aed1.chupatedos.iu;
 
 import java.util.Scanner;
 
-public class IU {
+public class UI {
 
     private final Scanner keyboard;
 
-    public IU() {
+    public UI() {
         keyboard = new Scanner(System.in);
     }
 
@@ -86,6 +86,10 @@ public class IU {
         System.out.println(msg);
     }
 
+    public void displayInlineMessage(String msg) {
+        System.out.print(msg);
+    }
+
     /**
      * Shows a line to separate messages on the screen
      *
@@ -106,9 +110,10 @@ public class IU {
     public void displayWaitingDots() {
         for (int i = 0; i < 3; i++) {
             await(600);
-            displayMessage(".");
+            displayInlineMessage(". ");
         }
         await(600);
+        displayEmptyLine();
     }
 
     /**
@@ -124,7 +129,7 @@ public class IU {
      * @param msg the error message to show
      */
     public void displayError(String msg) {
-        System.err.println("ERROR - " + msg);
+        System.err.printf("ERROR - %s%n", msg);
     }
 
     /**
